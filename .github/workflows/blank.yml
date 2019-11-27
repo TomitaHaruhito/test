@@ -12,6 +12,5 @@ jobs:
     - name: Run a one-line script
       run: echo Hello, world!
     - name: Run a multi-line script
-      run: ssh -i "${{ secrets.SSH_KEY }}" ec2-user@ec2-52-69-15-5.ap-northeast-1.compute.amazonaws.com
-      run: cd svr
-      run: node app.js
+      run:|
+          ssh -i "${{ secrets.SSH_KEY }}" ec2-user@ec2-52-69-15-5.ap-northeast-1.compute.amazonaws.com sh deploy.sh
