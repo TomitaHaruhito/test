@@ -12,4 +12,4 @@ jobs:
     - name: Run a one-line script
       run: echo Hello, world!
     - name: Run a multi-line script
-      run: ssh -i "${{ secrets.SSH_KEY }}" ec2-user@ec2-18-179-36-225.ap-northeast-1.compute.amazonaws.com "touch data2.txt"
+      run: ssh　-o 'StrictHostKeyChecking no' -i "${{ secrets.SSH_KEY }}" ec2-user@ec2-18-179-36-225.ap-northeast-1.compute.amazonaws.com "touch data2.txt"
