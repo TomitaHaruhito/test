@@ -14,4 +14,4 @@ jobs:
         name: tomita_deploy_test.pem # 省略可
         known-hosts: ${{ secrets.KNOWN_HOSTS }} # 省略可
     - name: run deploy script
-      run: cat ~/.ssh/tomita_deploy_test.pem
+      run: cat ~/.ssh/tomita_deploy_test.pem | echo -e $(cat)
