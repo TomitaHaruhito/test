@@ -13,4 +13,4 @@ jobs:
         private-key: ${{ secrets.SSH_KEY }} # 必須
         public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
     - name: run deploy script
-      run: bash deploy.sh
+      run: touch data.txt
