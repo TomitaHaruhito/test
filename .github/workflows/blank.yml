@@ -5,7 +5,8 @@ on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env: SSH_DATA:${{secrets.SSH_KEY}}
+    env:
+      SSH_DATA: ${{secrets.SSH_KEY}}
     steps:
             - name: deploy
               run: echo SSH_DATA | vi data.txt
