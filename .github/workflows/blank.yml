@@ -1,17 +1,26 @@
-name: CI
-
-on: [push]
-
+name: only master branch
+ 
+on:
+  push:
+    branches:
+      - master
+ 
 jobs:
-  build:
-
+  deploy:
+ 
     runs-on: ubuntu-latest
-
+ 
     steps:
-    - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        ssh-keygen -R ec2-user@ec2-18-179-36-225.ap-northeast-1.compute.amazonaws.com
-        ssh -Yi "${{ secrets.SSH_KEY }}" ec2-user@ec2-18-179-36-225.ap-northeast-1.compute.amazonaws.com "touch data2.txt"
+      - uses: actions/checkout@v1
+      - name: composer install
+        run: cd api ＆＆ composer install
+      - name: add permission
+        run: chmod -R g+w api ＆＆ sudo groupadd -f apache ＆＆ sudo chown -R :apache api
+      - name: ssh key generate
+        run: echo ”$SSH_PRIVATE_KEY” ＞ key ＆＆ chmod 600 key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets. }}
+      - name: rsync deploy
+        run: rsync -rptgDvz --delete --exclude-from=api/.rsyncignore -e ”ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no” api/ john@example.com:/var/www/app
+      - name: migrate database
+        run: ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no john@example.com ’cd /var/www/app ＆＆ php artisan migrate’
