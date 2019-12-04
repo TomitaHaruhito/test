@@ -1,24 +1,16 @@
-name: only master branch
- 
 on:
-  push:
-    branches:
-      - master
- 
+  release:
+    types:
+    - published # 新しいリリースが作成されたときに実行
+name: Deploy
 jobs:
   deploy:
- 
     runs-on: ubuntu-latest
- 
     steps:
-      - uses: actions/checkout@v1
-      - name: composer install
-        run: cd api ＆＆ composer install
-      - name: add permission
-        run: chmod -R g+w api ＆＆ sudo groupadd -f apache ＆＆ sudo chown -R :apache api
-      - name: ssh key generate
-        run: echo ”$SSH_PRIVATE_KEY” ＞ key ＆＆ chmod 600 key
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets. }}
-      - name: rsync deploy
-        run: ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ubuntu@ec2-3-115-111-84.ap-northeast-1.compute.amazonaws.com "sh < deploy.sh"
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v1
+      with: # shimataro/ssh-key-actionに渡すパラメーター
+        private-key: ${{ secrets.SSH_KEY }} # 必須
+        public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
+    - name: run deploy script
+      run: bash deploy.sh
