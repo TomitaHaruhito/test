@@ -1,12 +1,17 @@
+on:
+  release:
+    types:
+    - published # 新しいリリースが作成されたときに実行
 name: Deploy
-
-on: [push]
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: vi sshkey
-      run: "echo ${{secrets.SSH_KEY}} > data.pem"
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v1
+      with: # shimataro/ssh-key-actionに渡すパラメーター
+        private-key: ${{ secrets.SSH_KEY }} # 必須
+        public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
+        name: id_rsa # 省略可
     - name: run deploy script
-      run: ssh -i "~/data" ec2-user@ec2-18-176-58-235.ap-northeast-1.compute.amazonaws.com "touch dddd"
+      run: ssh -i "./.ssh/id_rsa" -o StrictHostKeyChecking=no ec2-user@18.176.58.235 "touch data.txt"
