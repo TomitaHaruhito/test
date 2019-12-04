@@ -7,6 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: vi sshkey
-      run: "echo ${{secrets.SSH_KEY}} > data"
+      run: "echo ${{secrets.SSH_KEY}} > data.pem"
     - name: run deploy script
       run: ssh -i "~/data" ec2-user@ec2-18-176-58-235.ap-northeast-1.compute.amazonaws.com "touch dddd"
