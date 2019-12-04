@@ -5,13 +5,9 @@ on: [push]
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env: SSH_DATA:${{SSH_KEY}}
     steps:
-    - name: Install SSH key
-      uses: shimataro/ssh-key-action@v1
-      with: # shimataro/ssh-key-actionに渡すパラメーター
-        private-key: ${{ secrets.SSH_KEY }} # 必須
-        public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
-        name: id_rsa # 省略可
-        known-hosts: ${{ secrets.KNOWN_HOSTS }} # 省略可
-    - name: run deploy script
-      run: ls ~/.ssh
+            - name: deploy
+              run: echo SSH_DATA | vi data.txt
+            - name: deploy2
+              run: cat data.txt | echo -e $(cat)      
