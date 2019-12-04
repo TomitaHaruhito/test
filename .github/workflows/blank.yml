@@ -9,7 +9,9 @@ jobs:
     - name: Install SSH key
       env:
         SSH_KEY: ${{ secrets.GITHUB_TOKEN }}
-      run: echo $SSH_KEY > ~/data.txt
+      run: echo $SSH_KEY > ~/data.pem
+    - name: set permission
+      run: chmod 600 ~/data.pem
     - name: deploy
-      run: ssh -i "~/data.txt" -o StrictHostKeyChecking=no ec2-user@18.176.58.235 "touch data.txt"
+      run: ssh -i "~/data.pem" -o StrictHostKeyChecking=no ec2-user@18.176.58.235 "touch data.txt"
       
