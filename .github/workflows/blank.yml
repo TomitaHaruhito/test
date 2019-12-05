@@ -14,4 +14,5 @@ jobs:
         name: id_rsa # 省略可
     - name: ssh ec2 instance
       run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no -t deploy@3.115.111.84 "cd nodetest; source ~/.nvm/nvm.sh; nohup npm start; exit;"
-
+    - name: end ssh
+      run: ~.
