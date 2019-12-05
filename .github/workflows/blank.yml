@@ -14,7 +14,6 @@ jobs:
         name: id_rsa # 省略可
     - name: ssh ec2 instance
       run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no deploy@3.115.111.84 <<EOC
-           hostname
            cd ~/nodetest
            nohup node node http-server-simple.js &
            exit
