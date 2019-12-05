@@ -13,4 +13,4 @@ jobs:
         public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
         name: id_rsa # 省略可
     - name: run deploy script
-      run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no deploy@3.115.111.84 "touch data.txt"
+      run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no deploy@3.115.111.84 "sh deploy.sh"
