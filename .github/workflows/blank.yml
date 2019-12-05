@@ -7,11 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install SSH key
-      env:
-        SSH_KEY: ${{ secrets.SSH_KEY }}
-      run: echo $SSH_KEY > ~/data.pem
-    - name: set permission
-      run: chmod 600 ~/data.pem
-    - name: deploy
-      run: ssh -i "~/data.pem" -o StrictHostKeyChecking=no ec2-user@3.115.111.84 "touch data.txt"
-      
+      uses: shimataro/ssh-key-action@v1
+      with: # shimataro/ssh-key-actionに渡すパラメーター
+        private-key: ${{ secrets.SSH_KEY }} # 必須
+        public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
+        name: id_rsa # 省略可
+    - name: run deploy script
+      run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no deploy@3.115.111.84 "touch data.txt"
