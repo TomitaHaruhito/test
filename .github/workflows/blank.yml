@@ -13,5 +13,5 @@ jobs:
         public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
         name: id_rsa # 省略可
     - name: ssh ec2 instance
-      run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no deploy@3.115.111.84 "cd nodetest; nohup node http-server-simple.js &;"
+      run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no deploy@3.115.111.84 "cd nodetest; nohup node http-server-simple.js;"
 
