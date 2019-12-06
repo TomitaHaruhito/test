@@ -8,18 +8,12 @@ jobs:
     steps:
     - name: Install SSH key
       uses: shimataro/ssh-key-action@v1
-<<<<<<< HEAD
-=======
       if: github.ref == 'refs/heads/master'
->>>>>>> c3ae0d9... change if
       with: # shimataro/ssh-key-actionに渡すパラメーター
         private-key: ${{ secrets.SSH_KEY }} # 必須
         public-key: ${{ secrets.SSH_KEY_PUBLIC }} # 必須
         name: id_rsa # 省略可
     - name: ssh ec2 instance
-<<<<<<< HEAD
-      run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no -t deploy@3.115.111.84 "cd nodetest; source ~/.nvm/nvm.sh; nohup npm start > out.log 2 > err.log&"
-=======
       if: github.ref == 'refs/heads/master'
       run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no -t deploy@3.115.111.84 "cd nodetest; source ~/.nvm/nvm.sh; nohup npm start > out.log 2 > err.log&"
 
@@ -33,4 +27,3 @@ jobs:
     - name: ssh ec2 instance
       if: github.ref == 'refs/heads/branch1'
       run: ssh -i "~/.ssh/id_rsa" -o StrictHostKeyChecking=no -t deploy@13.230.179.120 "touch data.txt"
->>>>>>> c3ae0d9... change if
