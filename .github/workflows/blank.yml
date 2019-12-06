@@ -4,12 +4,13 @@ on:
   push:
     branches:
       - master
+      - branch1
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
     - name: echo ref
-      run: echo github.ref
+      run: echo ${{github.ref}}
     - name: Install SSH key
       uses: shimataro/ssh-key-action@v1
       if: github.ref == 'master'
