@@ -1,4 +1,4 @@
-name: DeployMaster
+name: DeployBranch1
 
 on:
   push:
